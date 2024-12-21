@@ -1,0 +1,237 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Building &mdash; shaman  documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
+
+  
+    <link rel="canonical" href="https://shamandbi.github.io/building.html" />
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="_static/doctools.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Porting Guide" href="porting_guide.html" />
+    <link rel="prev" title="Shaman DBI" href="index.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            shaman
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">General</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Building</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#building-core-library">Building Core Library</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#example-1-syscall-tracer">Example #1 : Syscall Tracer</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#build">Build</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#running">Running</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#example-2-binary-code-coverage">Example #2 : Binary Code Coverage</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id1">Build</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id2">Running</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="porting_guide.html">Porting Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="roadmap.html">Roadmap</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Instrumentation API</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="breakpoint.html">Breakpoint</a></li>
+<li class="toctree-l1"><a class="reference internal" href="syscall_tracing.html">System Call Tracing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="code_coverage.html">Code Coverage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="resource_tracing.html">Resource Tracing</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Code Indexes</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="code_index.html">Code Index</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">shaman</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Building</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="building">
+<h1>Building<a class="headerlink" href="#building" title="Link to this heading"></a></h1>
+<p>This project is divided into two parts, the core library which has all the core features. To integerate this in your project you need to first build the code library which is show in the next section.</p>
+<p>You can also refer to the scripts/build.sh file.</p>
+<section id="building-core-library">
+<h2>Building Core Library<a class="headerlink" href="#building-core-library" title="Link to this heading"></a></h2>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">mkdir -p builds</span>
+<span class="go">cmake -S . -B builds/build_lib</span>
+<span class="go">cmake --build ./builds/build_lib</span>
+<span class="go">cmake --install ./builds/build_lib --prefix ./builds/shaman_lib</span>
+</pre></div>
+</div>
+</section>
+<section id="example-1-syscall-tracer">
+<span id="example-systrace"></span><h2>Example #1 : Syscall Tracer<a class="headerlink" href="#example-1-syscall-tracer" title="Link to this heading"></a></h2>
+<p>This exmaple demonstrates different syscall related API’s which the project offers and how to use them.</p>
+<section id="build">
+<h3>Build<a class="headerlink" href="#build" title="Link to this heading"></a></h3>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">cmake -S ./examples/syscall_tracer -B ./builds/syscall_tracer</span>
+<span class="go">cmake --build ./builds/syscall_tracer</span>
+</pre></div>
+</div>
+</section>
+<section id="running">
+<span id="example-code-cov"></span><h3>Running<a class="headerlink" href="#running" title="Link to this heading"></a></h3>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">./builds/syscall_tracer/syscall_tracer -h</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="example-2-binary-code-coverage">
+<h2>Example #2 : Binary Code Coverage<a class="headerlink" href="#example-2-binary-code-coverage" title="Link to this heading"></a></h2>
+<p>This project demonstrates how to collect binary code coverage by placing breakpoints at every basic block of the module you want to trace. The addresses of all the basic blocks are identified using Ghidra scripts.</p>
+<p>This application also showcases an interesting concept involving shared memory between a producer and a consumer process. The debugger acts as the producer process, continuously writing the execution trace to shared memory. The consumer process listens to the shared buffer and processes the coverage data. This design is inspired by a blog.</p>
+<p>The advantage of this design is speed and extensibility. Writing to memory is significantly faster than dumping data to a file. By offloading file writing to another process, the coverage collection remains efficient. Additionally, this data can be sent over a socket, which is useful for IoT devices with limited memory that need to collect extensive traces.</p>
+<section id="id1">
+<h3>Build<a class="headerlink" href="#id1" title="Link to this heading"></a></h3>
+<p>This application will produce two binaries <em>binary_coverage_app</em> and <em>binary_coverage_consumer</em> in <em>./builds/binary_coverage_app</em> directory.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">mkdir builds</span>
+
+<span class="go">cmake -S ./examples/binary_coverage -B ./builds/binary_coverage_app</span>
+<span class="go">cmake --build ./builds/binary_coverage_app</span>
+</pre></div>
+</div>
+</section>
+<section id="id2">
+<h3>Running<a class="headerlink" href="#id2" title="Link to this heading"></a></h3>
+<p>You can also refer to the script <em>examples/binary_coverage/run.sh</em>, which contains all the steps mentioned below in a shell script.</p>
+<ol class="arabic">
+<li><p>First extract the basic block address of module you are interested to trace using Ghidra script.</p>
+<blockquote>
+<div><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp"># </span><span class="nv">$GHIDRA_HOME</span><span class="w">   </span>-<span class="w"> </span>path<span class="w"> </span>to<span class="w"> </span>the<span class="w"> </span>ghidra<span class="w"> </span>home<span class="w"> </span>directory
+<span class="gp"># </span>target_binary<span class="w">  </span>-<span class="w"> </span>application<span class="w"> </span>binary<span class="w"> </span><span class="k">for</span><span class="w"> </span>which<span class="w"> </span>you<span class="w"> </span>want<span class="w"> </span>to<span class="w"> </span>generate<span class="w"> </span>gather<span class="w"> </span>code<span class="w"> </span>coverage
+<span class="gp"># </span>project<span class="w"> </span>output<span class="w"> </span>-<span class="w"> </span>project<span class="w"> </span>file<span class="w"> </span>created<span class="w"> </span>by<span class="w"> </span>ghidra<span class="w"> </span>will<span class="w"> </span>be<span class="w"> </span>saved<span class="w"> </span><span class="k">in</span><span class="w"> </span>this<span class="w"> </span>directory
+<span class="gp"># </span>project<span class="w"> </span>name<span class="w">   </span>-<span class="w"> </span>name<span class="w"> </span>of<span class="w"> </span>the<span class="w"> </span>project<span class="w"> </span><span class="k">in</span><span class="w"> </span>ghidra
+<span class="gp"># </span>script_path<span class="w">    </span>-<span class="w"> </span>path<span class="w"> </span>which<span class="w"> </span>has<span class="w"> </span>all<span class="w"> </span>the<span class="w"> </span>ghidra<span class="w"> </span>scripts,<span class="w"> </span>you<span class="w"> </span>can<span class="w"> </span><span class="nb">set</span><span class="w"> </span>this<span class="w"> </span>value<span class="w"> </span>to<span class="w"> </span>&lt;shaman_dir&gt;/script
+<span class="gp">$</span>GHIDRA_HOME/support/analyzeHeadless<span class="w"> </span>&lt;project<span class="w"> </span>output&gt;<span class="w"> </span>&lt;project_name&gt;<span class="w"> </span>-import<span class="w"> </span>&lt;target_binary&gt;<span class="w"> </span>-scriptPath<span class="w"> </span>&lt;script_path&gt;<span class="w"> </span>-postscript<span class="w"> </span>ghidra_bb_expoter.py<span class="w"> </span>&lt;output_file&gt;
+
+<span class="gp"># </span>Example<span class="w"> </span><span class="nb">command</span>
+<span class="gp">$</span>GHIDRA_HOME/support/analyzeHeadless<span class="w"> </span>shaman_ghidra_projects<span class="w"> </span>test_target<span class="w"> </span>-import<span class="w"> </span>builds/test_target/bin/test_target<span class="w"> </span>-scriptPath<span class="w"> </span><span class="k">$(</span><span class="nb">pwd</span><span class="k">)</span>/script/<span class="w"> </span>-postscript<span class="w"> </span>ghidra_bb_expoter.py<span class="w"> </span>output_test
+
+<span class="gp"># </span>you<span class="w"> </span>can<span class="w"> </span>also<span class="w"> </span>refer<span class="w"> </span>to<span class="w"> </span>script/generate-ghidra-bb.sh<span class="w"> </span>file
+</pre></div>
+</div>
+<p>This will generate a file which has all the basic block address of the module in <strong>output_test.bb</strong> file. You have to pass this file to the binary_coverage application.</p>
+</div></blockquote>
+</li>
+<li><p>Execute the target application with the following command.</p>
+<blockquote>
+<div><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp"># </span>-l<span class="w"> </span>-&gt;<span class="w"> </span>will<span class="w"> </span>log<span class="w"> </span>the<span class="w"> </span>application<span class="w"> </span>debug<span class="w"> </span>information<span class="w"> </span><span class="k">in</span><span class="w"> </span>the<span class="w"> </span>app.log<span class="w"> </span>file
+<span class="gp"># </span>--cov-basic-block<span class="w"> </span>-&gt;<span class="w"> </span>basic<span class="w"> </span>block<span class="w"> </span>file<span class="w"> </span>generated<span class="w"> </span>by<span class="w"> </span>the<span class="w"> </span>ghidra<span class="w"> </span>script
+<span class="gp"># </span>--pipe-id<span class="w"> </span>-&gt;<span class="w"> </span>shared<span class="w"> </span>memory<span class="w"> </span>id<span class="w"> </span>which<span class="w"> </span>will<span class="w"> </span>be<span class="w"> </span>used<span class="w"> </span>to<span class="w"> </span>communicate<span class="w"> </span>between<span class="w"> </span>the<span class="w"> </span>producer<span class="w"> </span>and<span class="w"> </span>consumer
+<span class="gp"># </span>-e<span class="w"> </span>-&gt;<span class="w"> </span>target<span class="w"> </span>application<span class="w"> </span>which<span class="w"> </span>you<span class="w"> </span>want<span class="w"> </span>to<span class="w"> </span>trace
+
+<span class="go">builds/binary_coverage_app/binary_coverage -l app.log --cov-basic-block ./output_test.bb --pipe-id 51900 -e ./test_target/bin/test_target 1</span>
+</pre></div>
+</div>
+<p>This will start the application and start collecting the coverage. The coverage will be written to the shared memory with pipe-id 51900. You need to use the same pipe-id in the consumer application.</p>
+</div></blockquote>
+</li>
+<li><p>Then start another terminal which has the coverage consume application with the following command.</p>
+<blockquote>
+<div><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp"># </span>starts<span class="w"> </span>the<span class="w"> </span>binary<span class="w"> </span>consumer<span class="w"> </span>with<span class="w"> </span>same<span class="w"> </span>pipe-id
+<span class="go">builds/binary_coverage_app/binary_coverage_consumer 51900</span>
+</pre></div>
+</div>
+<p>This will start the consumer application which will start reading the shared memory and process the coverage.</p>
+<p>If you want to do some custom processing of the coverage you can modify the consumer application. The consumer application is in the <em>./examples/binary_coverage/src</em> directory and the file name is <em>binary_coverage_consumer.cpp</em>.</p>
+</div></blockquote>
+</li>
+</ol>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="index.html" class="btn btn-neutral float-left" title="Shaman DBI" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="porting_guide.html" class="btn btn-neutral float-right" title="Porting Guide" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Munawwar Hussain Shelia.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+    <!-- Theme Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-DSS2DJ0XF1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-DSS2DJ0XF1', {
+          'anonymize_ip': false,
+      });
+    </script> 
+
+</body>
+</html>
