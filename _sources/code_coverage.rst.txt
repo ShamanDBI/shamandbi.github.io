@@ -75,9 +75,9 @@ When to Use it?
 ===============
 
 #. Black box target
-#. selective instrumentation
-#. Custom logic on coverage like single shot breakpoint,
-#. 
+#. Selective instrumentation
+#. Custom logic on execution trace like single shot breakpoint.
+
 
 Keep in Mind
 ============
@@ -97,17 +97,10 @@ Instrumentation is limited by execution coverage. So, if the program never reach
 Usage Guide
 ===========
 
-#. First you need to identify basic block
+#. First you need to identify basic block addresses which can be done using a disassembler like Ghidra or IDA Pro. These tools will help you to identify the start and end addresses of each basic block in the binary.
 
-:cpp:class:`BreakpointReader` :cpp:class:`BreakpointCoverage`
+#. Once you have the basic block addresses, you can use the Shaman framework to instrument the binary. This framework allows you to insert custom code at the basic block level to collect coverage data.
 
-Footnotes
-=========
+#. Run the instrumented binary with your test cases or fuzzing inputs. The instrumentation code will log the execution trace, which can be used to generate a coverage report.
 
-#. .. _llvm_cov: https://clang.llvm.org/docs/SourceBasedCodeCoverage.html.
-#. MPLAB Code Coverage by Micro Chip for Micro-controller
-#. https://ldra.com/capabilities/code-coverage-analysis/#CA14
-#. Bullseye Testing Technology
-#. https://www.qt.io/product/quality-assurance/coco
-#. [TestCocoon](https://www.testcocoon.org/download.tmp.html)
-#. OS-less dynamic binary instrumentation for embedded firmware
+#. Use a coverage analysis tool to process the execution trace and generate a human-readable report. This report will show which parts of the code were executed and how many times each basic block was hit.

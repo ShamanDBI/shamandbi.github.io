@@ -2,30 +2,32 @@
 System Call Tracing
 ===================
 
-This another primitive of the Framework which give you control over the Kernel resource which the Tracee uses. 
+This is callback is triggered of the Framework that gives you control over the Kernel resources used by the Tracee.
 
-Syscall is the API interface between User and Kernel by which it requests a server from the Kernel of the Operating System.
+A syscall is the API interface between User and Kernel, through which the User requests a service from the Kernel of the Operating System.
 
-This Interface will give you ability to stop and inspect before and after the System Call is made.
-1. A Process interacte with the Operating systems rich functionality it will make system call for things like Creating and Editing Files, Networking related functions, since Linux and Other Unix like OS have standard Kernel interface you can intercept every request that goes to the Kernel it comeback.
-1. To take advantage of this feature you can over-ride SyscallHandler class.
-1. System Call data is captured in SyscallTraceData class
+This interface allows you to stop and inspect the system call before and after it is made.
 
-When to Use it?
+1. When a process interacts with the operating system's rich functionality, it makes system calls for tasks such as creating and editing files, and networking functions. Since Linux and other Unix-like OS have a standard Kernel interface, you can intercept every request that goes to the Kernel and comes back.
+2. To take advantage of this feature, you can override the `SyscallHandler` class.
+3. System call data is captured in the `SyscallTraceData` class.
+
+When to Use It?
 ===============
 
-When you want to stop the process before and after the System Call is executed. You can log the data or you can change the parameter and return data to the Tracee Process.
+Use this feature when you want to stop the process before and after the system call is executed. You can log the data, change the parameters, or return data to the Tracee process.
 
-1. You can log the parameter and return type of the syscall
-2. You can change the parameter and return data of the syscall
-3. You can reject the syscall from executing and return value of your choice
-4. You can emulate the syscall but not actually executing the syscall and returning a fake value.
-5. You cannot change the Syscall number of the parameter.
+1. Log the parameters and return type of the syscall.
+2. Change the parameters and return data of the syscall.
+3. Reject the syscall from executing and return a value of your choice.
+4. Emulate the syscall without actually executing it and return a fake value.
+5. Note that you cannot change the syscall number or the parameters.
 
 Keep In Mind
 ============
 
-There is a performace cost associated with syscall handling.
+There is a performance cost associated with syscall handling.
 
 Sample Code
 ===========
+

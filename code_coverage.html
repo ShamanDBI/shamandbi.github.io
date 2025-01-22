@@ -67,7 +67,6 @@
 <li class="toctree-l2"><a class="reference internal" href="#when-to-use-it">When to Use it?</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#keep-in-mind">Keep in Mind</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#usage-guide">Usage Guide</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#footnotes">Footnotes</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="resource_tracing.html">Resource Tracing</a></li>
@@ -116,7 +115,7 @@
 <section id="source-base-instrumentation">
 <h2>Source-Base Instrumentation<a class="headerlink" href="#source-base-instrumentation" title="Link to this heading"></a></h2>
 <p>This techinque is mostly used by compiler, by enabling certain flags in you builds you can enable this feature. Compiler insert coverage instrumentation code in the compiled binary which record and report this information when the program is executed.</p>
-<p>Some promimente tool in this space are gcov for gcc compiler, llvm this feature <a class="reference external" href="https://clang.llvm.org/docs/SourceBasedCodeCoverage.html.">llvm_cov</a>. There are also other commercial solution like Bullseye.</p>
+<p>Some promimente tool in this space are gcov for gcc compiler, llvm this feature <a href="#id1"><span class="problematic" id="id2">`llvm_cov`_</span></a>. There are also other commercial solution like Bullseye.</p>
 <p>This solution is mostly source-based that means you need to have <em>access to source-code</em> and, you need to recompile the project so that source can be instrumented.</p>
 <p>To generate coverage you need to run the instrumented program, which will write the coverage data to the file. The compiler-suite has a program which can consume this file to generate an html report. This report highlights the executed code with the number of time the line is executed.</p>
 <p>Now, lets discuss what are the advantages and limitation of this method.</p>
@@ -169,10 +168,9 @@ environments that lack a filesystem</p>
 <h2>When to Use it?<a class="headerlink" href="#when-to-use-it" title="Link to this heading"></a></h2>
 <ol class="arabic simple">
 <li><p>Black box target</p></li>
-<li><p>selective instrumentation</p></li>
+<li><p>Selective instrumentation</p></li>
+<li><p>Custom logic on execution trace like single shot breakpoint.</p></li>
 </ol>
-<p>#. Custom logic on coverage like single shot breakpoint,
-#.</p>
 </section>
 <section id="keep-in-mind">
 <h2>Keep in Mind<a class="headerlink" href="#keep-in-mind" title="Link to this heading"></a></h2>
@@ -187,20 +185,10 @@ environments that lack a filesystem</p>
 <section id="usage-guide">
 <span id="code-cov-usage"></span><h2>Usage Guide<a class="headerlink" href="#usage-guide" title="Link to this heading"></a></h2>
 <ol class="arabic simple">
-<li><p>First you need to identify basic block</p></li>
-</ol>
-<p><a class="reference internal" href="code_index.html#_CPPv416BreakpointReader" title="BreakpointReader"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">BreakpointReader</span></code></a> <a class="reference internal" href="code_index.html#_CPPv418BreakpointCoverage" title="BreakpointCoverage"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">BreakpointCoverage</span></code></a></p>
-</section>
-<section id="footnotes">
-<h2>Footnotes<a class="headerlink" href="#footnotes" title="Link to this heading"></a></h2>
-<ol class="arabic simple">
-<li></li>
-<li><p>MPLAB Code Coverage by Micro Chip for Micro-controller</p></li>
-<li><p><a class="reference external" href="https://ldra.com/capabilities/code-coverage-analysis/#CA14">https://ldra.com/capabilities/code-coverage-analysis/#CA14</a></p></li>
-<li><p>Bullseye Testing Technology</p></li>
-<li><p><a class="reference external" href="https://www.qt.io/product/quality-assurance/coco">https://www.qt.io/product/quality-assurance/coco</a></p></li>
-<li><p>[TestCocoon](<a class="reference external" href="https://www.testcocoon.org/download.tmp.html">https://www.testcocoon.org/download.tmp.html</a>)</p></li>
-<li><p>OS-less dynamic binary instrumentation for embedded firmware</p></li>
+<li><p>First you need to identify basic block addresses which can be done using a disassembler like Ghidra or IDA Pro. These tools will help you to identify the start and end addresses of each basic block in the binary.</p></li>
+<li><p>Once you have the basic block addresses, you can use the Shaman framework to instrument the binary. This framework allows you to insert custom code at the basic block level to collect coverage data.</p></li>
+<li><p>Run the instrumented binary with your test cases or fuzzing inputs. The instrumentation code will log the execution trace, which can be used to generate a coverage report.</p></li>
+<li><p>Use a coverage analysis tool to process the execution trace and generate a human-readable report. This report will show which parts of the code were executed and how many times each basic block was hit.</p></li>
 </ol>
 </section>
 </section>
